@@ -1,0 +1,35 @@
+{
+  "name": "a9f/lifter",
+  "description": "Tool for automating project upgrades using Rector and other tools",
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "Andreas Wolf",
+      "email": "dev+lifter@a-w.io"
+    }
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.42"
+  },
+  "autoload": {
+    "psr-4": {
+      "a9f\\Lifter\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "a9f\\Lifter\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
+    "sort-packages": true
+  }
+}
