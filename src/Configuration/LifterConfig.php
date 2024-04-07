@@ -6,6 +6,25 @@ use a9f\Lifter\Upgrade\UpgradeStep;
 
 final class LifterConfig
 {
+    private string $workingDirectory = '';
+
+    public function __construct()
+    {
+        $this->workingDirectory = getcwd();
+    }
+
+    public function withWorkingDirectory(string $workingDirectory): self
+    {
+        $this->workingDirectory = $workingDirectory;
+
+        return $this;
+    }
+
+    public function getWorkingDirectory(): string
+    {
+        return $this->workingDirectory;
+    }
+
     /**
      * @var list<UpgradeStep>
      */
