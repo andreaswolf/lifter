@@ -6,8 +6,8 @@ use a9f\Lifter\Configuration\LifterConfig;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-use function Safe\getcwd;
 use function Safe\chdir;
+use function Safe\getcwd;
 
 final class LifterConfigTest extends TestCase
 {

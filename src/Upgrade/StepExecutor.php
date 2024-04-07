@@ -2,8 +2,6 @@
 
 namespace a9f\Lifter\Upgrade;
 
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
-
 /**
  * @template T of UpgradeStep
  */

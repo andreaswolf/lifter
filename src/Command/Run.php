@@ -30,7 +30,7 @@ class Run extends Command
 
         $this
             ->setDescription('Run an upgrade file')
-            ->addOption('file', 'f',  InputOption::VALUE_REQUIRED, 'PHP file that contains all upgrade rules')
+            ->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'PHP file that contains all upgrade rules')
         ;
     }
 

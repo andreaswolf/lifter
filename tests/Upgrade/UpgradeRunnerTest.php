@@ -54,7 +54,7 @@ final class UpgradeRunnerTest extends TestCase
 
     private function getUpgradeStepMock(): UpgradeStep
     {
-        return new class implements UpgradeStep {
+        return new class() implements UpgradeStep {
             public function getCommitMessage(): string
             {
                 return '';
@@ -69,7 +69,7 @@ final class UpgradeRunnerTest extends TestCase
      */
     private function getStepRecordingExecutor()
     {
-        return new class implements StepExecutor {
+        return new class() implements StepExecutor {
             /** @var list<UpgradeStep> */
             public array $executedSteps = [];
 
@@ -90,7 +90,7 @@ final class UpgradeRunnerTest extends TestCase
      */
     private function getIncapableExecutor(): StepExecutor
     {
-        return new class implements StepExecutor {
+        return new class() implements StepExecutor {
             public function canExecute(UpgradeStep $step): bool
             {
                 return false;
