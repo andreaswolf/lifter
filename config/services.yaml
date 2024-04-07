@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+
+  a9f\Lifter\:
+    resource: ../src/
+
+  a9f\Lifter\LifterApplication:
+    public: true
