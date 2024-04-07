@@ -10,7 +10,7 @@ final class LifterConfig
 
     public function __construct()
     {
-        $this->workingDirectory = getcwd();
+        $this->workingDirectory = \Safe\getcwd();
     }
 
     public function withWorkingDirectory(string $workingDirectory): self

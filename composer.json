@@ -16,7 +16,8 @@
     "symfony/console": "~7.0.0",
     "symfony/dependency-injection": "~7.0.0",
     "symfony/process": "~7.0.0",
-    "symfony/yaml": "~7.0.0"
+    "symfony/yaml": "~7.0.0",
+    "thecodingmachine/safe": "^2.5"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.42",
