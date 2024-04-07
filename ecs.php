@@ -14,6 +14,7 @@ return ECSConfig::configure()
     ])
     ->withPreparedSets(psr12: true)
     ->withPaths([
+        __DIR__ . '/res/',
         __DIR__ . '/src/',
         __DIR__ . '/tests/',
     ])
