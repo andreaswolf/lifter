@@ -21,8 +21,7 @@ final class ShellStepExecutor implements StepExecutor
         private readonly LifterConfig $config,
         private readonly InputInterface $input,
         private readonly OutputInterface $output
-    )
-    {
+    ) {
         $this->io = new SymfonyStyle($this->input, $this->output);
     }
 

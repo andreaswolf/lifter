@@ -9,8 +9,7 @@ final class ShellStep implements UpgradeStep
     public function __construct(
         private readonly string $commitMessage,
         public readonly string $script
-    )
-    {
+    ) {
     }
 
     public function getCommitMessage(): string

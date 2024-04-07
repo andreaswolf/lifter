@@ -2,7 +2,6 @@
 
 namespace a9f\Lifter\DependencyInjection\CompilerPass;
 
-use a9f\Fractor\Fractor\FractorRunner;
 use a9f\Lifter\Upgrade\UpgradeRunner;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
