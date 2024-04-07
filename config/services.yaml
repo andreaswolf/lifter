@@ -9,5 +9,8 @@ services:
   a9f\Lifter\LifterApplication:
     public: true
 
+  a9f\Lifter\Upgrade\UpgradeRunner:
+    public: true
+
   a9f\Lifter\Configuration\LifterConfig:
     lazy: true
