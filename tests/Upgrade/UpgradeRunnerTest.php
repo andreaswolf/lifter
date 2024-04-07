@@ -79,7 +79,7 @@ final class UpgradeRunnerTest extends TestCase
                 return true;
             }
 
-            public function run(UpgradeStep $step): void
+            public function run(int $index, UpgradeStep $step): void
             {
                 $this->executedSteps[] = $step;
             }
@@ -97,7 +97,7 @@ final class UpgradeRunnerTest extends TestCase
                 return false;
             }
 
-            public function run(UpgradeStep $step): void
+            public function run(int $index, UpgradeStep $step): void
             {
             }
         };

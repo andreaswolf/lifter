@@ -18,6 +18,7 @@ final class UpgradeRunner
      */
     public function run(array $steps): void
     {
+        $currentStepIndex = 0;
         foreach ($steps as $step) {
             $executed = false;
 
@@ -26,7 +27,7 @@ final class UpgradeRunner
                     continue;
                 }
 
-                $executor->run($step);
+                $executor->run($currentStepIndex, $step);
                 $executed = true;
                 break;
             }
@@ -39,6 +40,7 @@ final class UpgradeRunner
             }
 
             $this->gitService->performGitCommit($step->getCommitMessage());
+            ++$currentStepIndex;
         }
     }
 }

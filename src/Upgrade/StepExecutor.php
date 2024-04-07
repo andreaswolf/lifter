@@ -12,5 +12,5 @@ interface StepExecutor
     /**
      * @param T $step
      */
-    public function run(UpgradeStep $step): void;
+    public function run(int $index, UpgradeStep $step): void;
 }
