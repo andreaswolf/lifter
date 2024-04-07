@@ -1,0 +1,41 @@
+name: "Code style & tests"
+on:
+  pull_request:
+    # Run this workflow for all PRs against main
+    branches:
+      - main
+
+jobs:
+  php-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        composer-command:
+          - name: PHP Code Style
+            command: 'style:php:check'
+          - name: Composer normalize
+            command: 'normalize --dry-run'
+          - name: PHPStan
+            command: analyze:php
+          - name: PHPUnit
+            command: test:php
+
+    name: ${{ matrix.composer-command.name }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+        with:
+          container_workdir: /app
+          memory_limit: 512M
+
+      - name: 'Run check "${{ matrix.composer-command.name }}"'
+        uses: php-actions/composer@v6
+        with:
+          container_workdir: /app
+          command: ${{ matrix.composer-command.command }}
+          memory_limit: 512M
