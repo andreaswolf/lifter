@@ -12,6 +12,8 @@ final class LifterConfig
 
     private ?string $rectorConfigFile = null;
 
+    private bool $commitResults = true;
+
     public function __construct(public readonly ?string $configurationFile)
     {
         $this->workingDirectory = \Safe\getcwd();
@@ -74,6 +76,18 @@ final class LifterConfig
     public function getRectorConfigFile(): ?string
     {
         return $this->rectorConfigFile;
+    }
+
+    public function getCommitResults(): bool
+    {
+        return $this->commitResults;
+    }
+
+    public function setCommitResults(bool $commitResults): self
+    {
+        $this->commitResults = $commitResults;
+
+        return $this;
     }
 
     public function import(string $configFile): void
