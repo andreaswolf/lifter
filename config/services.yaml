@@ -13,4 +13,6 @@ services:
     public: true
 
   a9f\Lifter\Configuration\LifterConfig:
+    autowire: false
+    shared: true
     lazy: true

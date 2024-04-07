@@ -8,7 +8,7 @@ final class LifterConfig
 {
     private string $workingDirectory = '';
 
-    public function __construct()
+    public function __construct(public readonly ?string $configurationFile)
     {
         $this->workingDirectory = \Safe\getcwd();
     }

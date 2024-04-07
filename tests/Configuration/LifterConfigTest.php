@@ -15,11 +15,11 @@ final class LifterConfigTest extends TestCase
     public function workingDirectoryIsSetToCurrentWorkingDirectoryByDefault(): void
     {
         $initialWorkingDirectory = \Safe\getcwd();
-        self::assertSame(getcwd(), (new LifterConfig())->getWorkingDirectory());
+        self::assertSame(getcwd(), (new LifterConfig(null))->getWorkingDirectory());
 
         try {
             chdir(__DIR__);
-            self::assertSame(__DIR__, (new LifterConfig())->getWorkingDirectory());
+            self::assertSame(__DIR__, (new LifterConfig(null))->getWorkingDirectory());
         } finally {
             chdir($initialWorkingDirectory);
         }
