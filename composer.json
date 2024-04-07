@@ -47,6 +47,7 @@
     "sort-packages": true
   },
   "scripts": {
-    "analyze:php": "phpstan analyze"
+    "analyze:php": "phpstan analyze",
+    "test:php": "phpunit tests/"
   }
 }
