@@ -26,7 +26,7 @@ include $autoloadFile;
 
 $configFile = ConfigResolver::resolveConfigsFromInput(new ArgvInput());
 
-$container = (new ContainerBuilder())->build();
+$container = (new ContainerBuilder())->build($configFile);
 
 /** @var LifterApplication $application */
 $application = $container->get(LifterApplication::class);
