@@ -1,0 +1,21 @@
+{
+  "name": "a9f/lifter-tests",
+  "type": "project",
+  "require": {
+    "a9f/lifter": "@dev"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.42"
+  },
+  "repositories": {
+    "lifter": {
+      "type": "path",
+      "url": "../"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  }
+}
