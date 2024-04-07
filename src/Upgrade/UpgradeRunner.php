@@ -7,8 +7,10 @@ final class UpgradeRunner
     /**
      * @param list<StepExecutor> $stepExecutors
      */
-    public function __construct(private readonly array $stepExecutors)
-    {
+    public function __construct(
+        private readonly GitService $gitService,
+        private readonly array      $stepExecutors
+    ) {
     }
 
     /**
@@ -35,6 +37,8 @@ final class UpgradeRunner
                     get_class($step)
                 ));
             }
+
+            $this->gitService->performGitCommit($step->getCommitMessage());
         }
     }
 }

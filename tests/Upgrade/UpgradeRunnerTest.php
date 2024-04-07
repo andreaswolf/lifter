@@ -2,10 +2,12 @@
 
 namespace a9f\Lifter\Tests\Upgrade;
 
+use a9f\Lifter\Upgrade\GitService;
 use a9f\Lifter\Upgrade\StepExecutor;
 use a9f\Lifter\Upgrade\UpgradeRunner;
 use a9f\Lifter\Upgrade\UpgradeStep;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class UpgradeRunnerTest extends TestCase
@@ -16,7 +18,7 @@ final class UpgradeRunnerTest extends TestCase
         $executor = $this->getStepRecordingExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner([$executor]);
+        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$executor]);
         $runner->run([$step]);
 
         self::assertCount(1, $executor->executedSteps);
@@ -30,7 +32,7 @@ final class UpgradeRunnerTest extends TestCase
         $secondExecutor = $this->getStepRecordingExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner([$firstExecutor, $secondExecutor]);
+        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$firstExecutor, $secondExecutor]);
         $runner->run([$step]);
 
         self::assertCount(1, $firstExecutor->executedSteps);
@@ -46,7 +48,7 @@ final class UpgradeRunnerTest extends TestCase
         $executor = $this->getIncapableExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner([$executor]);
+        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$executor]);
         $runner->run([$step]);
     }
 
@@ -98,5 +100,15 @@ final class UpgradeRunnerTest extends TestCase
             {
             }
         };
+    }
+
+    /**
+     * @return GitService&MockObject
+     */
+    private function getCommitServiceMock()
+    {
+        return $this->getMockBuilder(GitService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }
