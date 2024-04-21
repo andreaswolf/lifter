@@ -2,6 +2,7 @@
 
 namespace a9f\Lifter\Tests\Upgrade;
 
+use a9f\Lifter\Configuration\LifterConfigFactory;
 use a9f\Lifter\Upgrade\GitService;
 use a9f\Lifter\Upgrade\StepExecutor;
 use a9f\Lifter\Upgrade\UpgradeRunner;
@@ -18,7 +19,7 @@ final class UpgradeRunnerTest extends TestCase
         $executor = $this->getStepRecordingExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$executor]);
+        $runner = $this->createRunner([$executor]);
         $runner->run([$step]);
 
         self::assertCount(1, $executor->executedSteps);
@@ -32,7 +33,7 @@ final class UpgradeRunnerTest extends TestCase
         $secondExecutor = $this->getStepRecordingExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$firstExecutor, $secondExecutor]);
+        $runner = $this->createRunner([$firstExecutor, $secondExecutor]);
         $runner->run([$step]);
 
         self::assertCount(1, $firstExecutor->executedSteps);
@@ -48,7 +49,7 @@ final class UpgradeRunnerTest extends TestCase
         $executor = $this->getIncapableExecutor();
         $step = $this->getUpgradeStepMock();
 
-        $runner = new UpgradeRunner($this->getCommitServiceMock(), [$executor]);
+        $runner = $this->createRunner([$executor]);
         $runner->run([$step]);
     }
 
@@ -78,7 +79,7 @@ final class UpgradeRunnerTest extends TestCase
                 return true;
             }
 
-            public function run(UpgradeStep $step): void
+            public function run(int $index, UpgradeStep $step): void
             {
                 $this->executedSteps[] = $step;
             }
@@ -96,10 +97,19 @@ final class UpgradeRunnerTest extends TestCase
                 return false;
             }
 
-            public function run(UpgradeStep $step): void
+            public function run(int $index, UpgradeStep $step): void
             {
             }
         };
+    }
+
+    /**
+     * @param list<StepExecutor> $executors
+     */
+    private function createRunner(array $executors): UpgradeRunner
+    {
+        $configuration = LifterConfigFactory::createConfigurationFromFile(null);
+        return new UpgradeRunner($configuration, $this->getCommitServiceMock(), $executors);
     }
 
     /**

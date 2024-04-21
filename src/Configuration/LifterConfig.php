@@ -8,7 +8,13 @@ final class LifterConfig
 {
     private string $workingDirectory = '';
 
-    public function __construct()
+    private ?string $rectorBinary = null;
+
+    private ?string $rectorConfigFile = null;
+
+    private bool $commitResults = true;
+
+    public function __construct(public readonly ?string $configurationFile)
     {
         $this->workingDirectory = \Safe\getcwd();
     }
@@ -46,6 +52,42 @@ final class LifterConfig
     public function getSteps(): array
     {
         return $this->steps;
+    }
+
+    public function withRectorBinary(?string $rectorBinary): self
+    {
+        $this->rectorBinary = $rectorBinary;
+
+        return $this;
+    }
+
+    public function getRectorBinary(): ?string
+    {
+        return $this->rectorBinary;
+    }
+
+    public function withRectorConfigFile(?string $rectorConfigFile): self
+    {
+        $this->rectorConfigFile = $rectorConfigFile;
+
+        return $this;
+    }
+
+    public function getRectorConfigFile(): ?string
+    {
+        return $this->rectorConfigFile;
+    }
+
+    public function getCommitResults(): bool
+    {
+        return $this->commitResults;
+    }
+
+    public function setCommitResults(bool $commitResults): self
+    {
+        $this->commitResults = $commitResults;
+
+        return $this;
     }
 
     public function import(string $configFile): void

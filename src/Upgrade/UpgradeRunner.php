@@ -2,12 +2,15 @@
 
 namespace a9f\Lifter\Upgrade;
 
+use a9f\Lifter\Configuration\LifterConfig;
+
 final class UpgradeRunner
 {
     /**
      * @param list<StepExecutor> $stepExecutors
      */
     public function __construct(
+        private readonly LifterConfig $lifterConfig,
         private readonly GitService $gitService,
         private readonly array      $stepExecutors
     ) {
@@ -18,6 +21,7 @@ final class UpgradeRunner
      */
     public function run(array $steps): void
     {
+        $currentStepIndex = 0;
         foreach ($steps as $step) {
             $executed = false;
 
@@ -26,7 +30,7 @@ final class UpgradeRunner
                     continue;
                 }
 
-                $executor->run($step);
+                $executor->run($currentStepIndex, $step);
                 $executed = true;
                 break;
             }
@@ -38,7 +42,10 @@ final class UpgradeRunner
                 ));
             }
 
-            $this->gitService->performGitCommit($step->getCommitMessage());
+            if ($this->lifterConfig->getCommitResults()) {
+                $this->gitService->performGitCommit($step->getCommitMessage());
+            }
+            ++$currentStepIndex;
         }
     }
 }

@@ -30,7 +30,7 @@ final class ShellStepExecutor implements StepExecutor
         return $step instanceof ShellStep;
     }
 
-    public function run(UpgradeStep $step): void
+    public function run(int $index, UpgradeStep $step): void
     {
         $process = new Process(
             [

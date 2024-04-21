@@ -3,6 +3,7 @@
 namespace a9f\Lifter\DependencyInjection;
 
 use a9f\Lifter\Configuration\LifterConfig;
+use a9f\Lifter\Configuration\LifterConfigFactory;
 use a9f\Lifter\DependencyInjection\CompilerPass\CommandsCompilerPass;
 use a9f\Lifter\DependencyInjection\CompilerPass\StepExecutorCompilerPass;
 use a9f\Lifter\Upgrade\StepExecutor;
@@ -23,7 +24,7 @@ final class ContainerBuilder
             ->addTag(StepExecutorCompilerPass::EXECUTOR_SERVICE_TAG);
         $containerBuilder->addCompilerPass(new StepExecutorCompilerPass());
 
-        $lifterConfig = new LifterConfig();
+        $lifterConfig = LifterConfigFactory::createConfigurationFromFile($configurationFile);
         $containerBuilder->set(LifterConfig::class, $lifterConfig);
 
         $configFileLocator = new FileLocator(__DIR__ . '/../../config/');
@@ -31,10 +32,6 @@ final class ContainerBuilder
         $yamlLoader->load('services.yaml');
         $phpLoader = new PhpFileLoader($containerBuilder, $configFileLocator);
         $phpLoader->load('application.php');
-
-        if ($configurationFile !== null && is_file($configurationFile)) {
-            $lifterConfig->import($configurationFile);
-        }
 
         $containerBuilder->compile();
 
