@@ -51,6 +51,23 @@ final class LifterConfig
     }
 
     /**
+     * @var list<non-empty-string>
+     */
+    private array $composerFiles = [];
+
+    public function withComposerFiles(array $files): self
+    {
+        $this->composerFiles = array_merge($this->composerFiles, $files);
+
+        return $this;
+    }
+
+    public function getComposerFiles(): array
+    {
+        return $this->composerFiles;
+    }
+
+    /**
      * @return list<UpgradeStep>
      */
     public function getSteps(): array
