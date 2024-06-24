@@ -12,6 +12,10 @@ final class LifterConfig
 
     private ?string $rectorConfigFile = null;
 
+    private ?string $fractorBinary = null;
+
+    private ?string $fractorConfigFile = null;
+
     private bool $commitResults = true;
 
     public function __construct(public readonly ?string $configurationFile)
@@ -76,6 +80,30 @@ final class LifterConfig
     public function getRectorConfigFile(): ?string
     {
         return $this->rectorConfigFile;
+    }
+
+    public function withFractorBinary(?string $fractorBinary): self
+    {
+        $this->fractorBinary = $fractorBinary;
+
+        return $this;
+    }
+
+    public function getFractorBinary(): ?string
+    {
+        return $this->fractorBinary;
+    }
+
+    public function withFractorConfigFile(?string $fractorConfigFile): self
+    {
+        $this->fractorConfigFile = $fractorConfigFile;
+
+        return $this;
+    }
+
+    public function getFractorConfigFile(): ?string
+    {
+        return $this->fractorConfigFile;
     }
 
     public function getCommitResults(): bool
