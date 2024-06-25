@@ -7,21 +7,40 @@ BASE_DIR="$TESTS_BASE_DIR/../"
 
 cd $TESTS_BASE_DIR
 
-rm -r composer.lock vendor || true
+#rm -r composer.lock vendor || true
 composer install
 
 run_test() {
   TEST_DIR=$1
 
+  set +x
+  echo
+  echo "######################################################"
+  echo "# Running test in $TEST_DIR"
+  echo "######################################################"
+  echo
+  set -x
+
   cd $TESTS_BASE_DIR/$TEST_DIR
 
+  [[ -f $TESTS_BASE_DIR/$TEST_DIR/output.txt ]] && rm -f $TESTS_BASE_DIR/$TEST_DIR/output.txt
   [[ -d ./output/ ]] && rm -rf ./output/
   cp -r fixtures/ output/
 
   cd $TESTS_BASE_DIR
-  ./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php
+  ./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt
 
+  diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt
   diff -rub $TEST_DIR/expected-output/ $TEST_DIR/output/
 }
 
-run_test rector
+if [ $# -eq 0 ]
+then
+  run_test rector
+  run_test fractor
+else
+  for test in $@
+  do
+    run_test $test
+  done
+fi

@@ -1,0 +1,15 @@
+FRACTOR:  0/1 [>---------------------------]   0%
+FRACTOR:  1/1 [============================] 100%
+FRACTOR:     ---------- begin diff ----------
+FRACTOR: @@ @@
+FRACTOR:    "name": "a9f/lifter-composer-json-example",
+FRACTOR:    "type": "project",
+FRACTOR:    "require": {
+FRACTOR: -    "phpunit/phpunit": "^10.5"
+FRACTOR: +    "phpunit/phpunit": "^11.2"
+FRACTOR:    }
+FRACTOR:  }
+FRACTOR:     ----------- end diff -----------
+FRACTOR: Applied rules:
+FRACTOR: ChangePackageVersionComposerJsonFractor
+FRACTOR:

@@ -1,0 +1,7 @@
+{
+  "name": "a9f/lifter-composer-json-example",
+  "type": "project",
+  "require": {
+    "phpunit/phpunit": "^11.2"
+  }
+}
