@@ -21,6 +21,8 @@ class GitService
                 '/usr/bin/env',
                 'git',
                 'commit',
+                '-a',
+                '--allow-empty',
                 '-m',
                 $commitMessage
             ],
