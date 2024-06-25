@@ -44,8 +44,8 @@ final class ShellStepExecutor implements StepExecutor
         );
         $process->run();
 
-        if ($process->getExitCode() > 0) {
-            $this->io->error('');
+        if ($process->getExitCode() !== 0) {
+            throw new \RuntimeException("Running shell step failed:\n\n" . $process->getErrorOutput(), 1719244358);
         }
     }
 }
