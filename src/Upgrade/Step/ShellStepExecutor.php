@@ -5,9 +5,6 @@ namespace a9f\Lifter\Upgrade\Step;
 use a9f\Lifter\Configuration\LifterConfig;
 use a9f\Lifter\Upgrade\StepExecutor;
 use a9f\Lifter\Upgrade\UpgradeStep;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
 /**
@@ -15,14 +12,8 @@ use Symfony\Component\Process\Process;
  */
 final class ShellStepExecutor implements StepExecutor
 {
-    private SymfonyStyle $io;
-
-    public function __construct(
-        private readonly LifterConfig $config,
-        private readonly InputInterface $input,
-        private readonly OutputInterface $output
-    ) {
-        $this->io = new SymfonyStyle($this->input, $this->output);
+    public function __construct(private readonly LifterConfig $config)
+    {
     }
 
     public function canExecute(UpgradeStep $step): bool
@@ -44,8 +35,8 @@ final class ShellStepExecutor implements StepExecutor
         );
         $process->run();
 
-        if ($process->getExitCode() > 0) {
-            $this->io->error('');
+        if ($process->getExitCode() !== 0) {
+            throw new \RuntimeException("Running shell step failed:\n\n" . $process->getErrorOutput(), 1719244358);
         }
     }
 }
