@@ -2,7 +2,12 @@
   "name": "a9f/lifter-tests",
   "type": "project",
   "require": {
-    "a9f/lifter": "@dev"
+    "a9f/lifter": "@dev",
+    "a9f/fractor": "dev-main as 0.2.0",
+    "a9f/fractor-composer-json": "dev-main as 0.2.0",
+    "a9f/fractor-doc-generator": "dev-main as 0.2.0",
+    "a9f/fractor-extension-installer": "dev-main as 0.2.0",
+    "symplify/rule-doc-generator-contracts": "^11.2"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.42"
@@ -15,6 +20,7 @@
   },
   "config": {
     "allow-plugins": {
+      "a9f/fractor-extension-installer": true,
       "ergebnis/composer-normalize": true
     }
   }
