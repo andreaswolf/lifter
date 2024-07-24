@@ -18,7 +18,7 @@ final class ComposerPackageStepExecutor implements StepExecutor
 
     public function canExecute(UpgradeStep $step): bool
     {
-        return $step instanceof ComposerPackageChange;
+        return $step instanceof ComposerPackageStep;
     }
 
     /**
