@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace a9f\Lifter\Upgrade\Composer;
 
+use EtaOrionis\ComposerJsonManipulator\ComposerJson;
+
 final readonly class ChangePackageVersion implements ComposerPackageChange
 {
     public function __construct(
@@ -10,5 +12,10 @@ final readonly class ChangePackageVersion implements ComposerPackageChange
         public string $version
     )
     {
+    }
+
+    public function apply(ComposerJson $manifest): void
+    {
+        // TODO: Implement apply() method.
     }
 }
