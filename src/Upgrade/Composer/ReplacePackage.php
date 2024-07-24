@@ -17,6 +17,6 @@ final readonly class ReplacePackage implements ComposerPackageChange
 
     public function apply(ComposerJson $manifest): void
     {
-        // TODO: Implement apply() method.
+        $manifest->replacePackage($this->oldPackageName, $this->newPackageName, $this->version);
     }
 }

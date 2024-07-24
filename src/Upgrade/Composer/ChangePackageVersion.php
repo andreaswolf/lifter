@@ -16,6 +16,8 @@ final readonly class ChangePackageVersion implements ComposerPackageChange
 
     public function apply(ComposerJson $manifest): void
     {
-        // TODO: Implement apply() method.
+        foreach ($manifest->getRequirePackageNames() as $package) {
+            $manifest->changePackageVersion($package, $this->version);
+        }
     }
 }

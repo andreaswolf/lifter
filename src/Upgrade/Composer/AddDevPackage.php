@@ -16,6 +16,6 @@ final readonly class AddDevPackage implements ComposerPackageChange
 
     public function apply(ComposerJson $manifest): void
     {
-        // TODO: Implement apply() method.
+        $manifest->addRequiredDevPackage($this->packageName, $this->version);
     }
 }

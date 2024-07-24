@@ -15,6 +15,6 @@ final readonly class RemovePackage implements ComposerPackageChange
 
     public function apply(ComposerJson $manifest): void
     {
-        // TODO: Implement apply() method.
+        $manifest->removePackage($this->packageName);
     }
 }

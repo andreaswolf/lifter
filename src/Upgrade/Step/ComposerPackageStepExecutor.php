@@ -22,7 +22,7 @@ final class ComposerPackageStepExecutor implements StepExecutor
     }
 
     /**
-     * @param ComposerPackageChange $step
+     * @param ComposerPackageStep $step
      */
     public function run(int $index, UpgradeStep $step): void
     {
@@ -30,7 +30,10 @@ final class ComposerPackageStepExecutor implements StepExecutor
         foreach ($files as $file) {
             $composerManifest = ComposerJson::fromFile($file);
 
-            $step->apply($composerManifest);
+            foreach ($step->getPackageChanges() as $change) {
+                $change->apply($composerManifest);
+            }
+            $composerManifest->save($file);
         }
     }
 }
