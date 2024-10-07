@@ -38,7 +38,16 @@ class Run extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->runner->run($this->config->getSteps());
+        $steps = $this->config->getSteps();
+        if (count($steps) === 0) {
+            $io->error('No upgrade rules found.');
+            return Command::FAILURE;
+        }
+
+        if ($output->isVerbose()) {
+            $output->writeln(sprintf('Running Fractor with %d rules', count($steps)));
+        }
+        $this->runner->run($steps);
 
         return Command::SUCCESS;
     }
