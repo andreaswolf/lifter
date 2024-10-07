@@ -1,0 +1,1 @@
+Configuration file /home/aw/Dev/own-php/lifter/e2e/missing-config-file//lifter.php does not exist
