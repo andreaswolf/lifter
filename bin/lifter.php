@@ -25,6 +25,10 @@ if ($autoloadFile === null) {
 include $autoloadFile;
 
 $configFile = ConfigResolver::resolveConfigsFromInput(new ArgvInput());
+if (!file_exists($configFile)) {
+    echo "Configuration file $configFile does not exist";
+    exit(1);
+}
 
 $container = (new ContainerBuilder())->build($configFile);
 

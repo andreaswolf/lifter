@@ -28,7 +28,12 @@ run_test() {
   cp -r fixtures/ output/
 
   cd $TESTS_BASE_DIR
-  ./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt
+  if [[ -x $TESTS_BASE_DIR/$TEST_DIR/run.sh ]]
+  then
+    $TESTS_BASE_DIR/$TEST_DIR/run.sh
+  else
+    ./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt
+  fi
 
   diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt
   diff -rub $TEST_DIR/expected-output/ $TEST_DIR/output/
