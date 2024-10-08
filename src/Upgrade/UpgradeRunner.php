@@ -43,7 +43,7 @@ final class UpgradeRunner
             }
 
             if ($this->lifterConfig->getCommitResults()) {
-                $this->gitService->performGitCommit($step->getCommitMessage());
+                $this->gitService->doGitCommitForStep($step);
             }
             ++$currentStepIndex;
         }
