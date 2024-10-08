@@ -10,12 +10,19 @@ use Symfony\Component\Process\Process;
  */
 class GitService
 {
-    public function __construct(private readonly LifterConfig $config)
-    {
+    public function __construct(
+        private readonly LifterConfig $config,
+        private readonly ProcessFactory $processFactory
+    ) {
     }
 
-    public function performGitCommit(string $commitMessage): void
+    public function doGitCommitForStep(UpgradeStep $step): void
     {
+        $commitMessage = $step->getCommitMessage();
+        if ($this->config->getCommitMessagePrefix() !== '') {
+            $commitMessage = sprintf('%s %s', $this->config->getCommitMessagePrefix(), $commitMessage);
+        }
+
         $process = new Process(
             [
                 '/usr/bin/env',

@@ -61,6 +61,9 @@ Follow these steps to start using Lifter in your PHP project:
     This command will apply the steps you specified in your `lifter.php` in the order in which they appear in the file.
 
     Each step will lead to a separate Git commit.
+    By default, Lifter will prefix the commit message with `(lifter)` to make its work easier to spot in the history.
+
+    To change this prefix, call `$config->withCommitMessagePrefix('my prefix:');`. To get rid of the prefix, pass an empty string.
 
 ## Contributing
 

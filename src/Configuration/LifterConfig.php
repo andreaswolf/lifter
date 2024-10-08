@@ -8,6 +8,8 @@ final class LifterConfig
 {
     private string $workingDirectory = '';
 
+    private string $commitMessagePrefix = '(lifter)';
+
     private ?string $rectorBinary = null;
 
     private ?string $rectorConfigFile = null;
@@ -33,6 +35,18 @@ final class LifterConfig
     public function getWorkingDirectory(): string
     {
         return $this->workingDirectory;
+    }
+
+    public function withCommitMessagePrefix(string $commitMessagePrefix): self
+    {
+        $this->commitMessagePrefix = $commitMessagePrefix;
+
+        return $this;
+    }
+
+    public function getCommitMessagePrefix(): string
+    {
+        return $this->commitMessagePrefix;
     }
 
     /**
