@@ -3,10 +3,10 @@
   "type": "project",
   "require": {
     "a9f/lifter": "@dev",
-    "a9f/fractor": "dev-main as 0.2.0",
-    "a9f/fractor-composer-json": "dev-main as 0.2.0",
-    "a9f/fractor-doc-generator": "dev-main as 0.2.0",
-    "a9f/fractor-extension-installer": "dev-main as 0.2.0",
+    "a9f/fractor": "^0.3",
+    "a9f/fractor-composer-json": "^0.3",
+    "a9f/fractor-doc-generator": "^0.3",
+    "a9f/fractor-extension-installer": "^0.3",
     "symplify/rule-doc-generator-contracts": "^11.2"
   },
   "require-dev": {
