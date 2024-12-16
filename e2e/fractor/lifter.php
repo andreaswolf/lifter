@@ -17,7 +17,7 @@ return static function (LifterConfig $config) {
         new FractorStep(
             'Update phpunit/phpunit to 11.x',
             static function (FractorConfigurationBuilder $fractorConfig) {
-                $fractorConfig->withPaths([__DIR__ . '/output/**']);
+                $fractorConfig->withPaths([__DIR__ . '/result/**']);
                 $fractorConfig->withConfiguredRule(
                     ChangePackageVersionComposerJsonFractor::class,
                     [

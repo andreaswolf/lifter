@@ -13,6 +13,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
      * This is the default way input/output are initialized in symfony/console,
      * @see \Symfony\Component\Console\Application::run()
      */
-    $services->set(InputInterface::class, ArgvInput::class);
-    $services->set(OutputInterface::class, ConsoleOutput::class);
+    $services->set(InputInterface::class, ArgvInput::class)
+        ->public();
+    $services->set(OutputInterface::class, ConsoleOutput::class)
+        ->public();
 };

@@ -1,6 +1,13 @@
-FRACTOR:  0/1 [>---------------------------]   0%
-FRACTOR:  1/1 [============================] 100%
-FRACTOR:     ---------- begin diff ----------
+Running Fractor with 1 rules
+FRACTOR: 0/1 [>---------------------------]   0% < 1 sec/< 1 sec
+FRACTOR: 1/1 [============================] 100% < 1 sec/< 1 sec
+FRACTOR:
+FRACTOR: 1 file with changes
+FRACTOR: ===================
+FRACTOR:
+FRACTOR: 1) fractor/result/composer.json:2
+FRACTOR:
+FRACTOR: ---------- begin diff ----------
 FRACTOR: @@ @@
 FRACTOR:    "name": "a9f/lifter-composer-json-example",
 FRACTOR:    "type": "project",
@@ -11,5 +18,7 @@ FRACTOR:    }
 FRACTOR:  }
 FRACTOR:     ----------- end diff -----------
 FRACTOR: Applied rules:
-FRACTOR: ChangePackageVersionComposerJsonFractor
+FRACTOR: * ChangePackageVersionComposerJsonFractor
+FRACTOR:
+FRACTOR: [OK] 1 file has been changed by Fractor
 FRACTOR:
