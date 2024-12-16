@@ -12,7 +12,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "a9f/fractor": "^0.3 || ^0.4",
+    "a9f/fractor": "^0.5",
     "rector/rector": "^1.0",
     "symfony/config": "^6.4 || ^7.0",
     "symfony/console": "^6.4 || ^7.0",
