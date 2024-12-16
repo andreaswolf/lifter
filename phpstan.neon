@@ -8,4 +8,6 @@ parameters:
 
     # this is required because of our generic interface StepExecutor that we use w/o specifying a concrete subtype,
     # e.g. in UpgradeRunner
-    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors:
+        -
+            identifier: missingType.generics

@@ -4,7 +4,6 @@ use a9f\Fractor\Configuration\FractorConfiguration;
 use a9f\Lifter\Configuration\LifterConfigFactory;
 use a9f\Lifter\Upgrade\Step\FractorStep;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Webmozart\Assert\Assert;
 
 return static function (ContainerConfigurator $configurator) {
     $fractorConfig = FractorConfiguration::configure();
@@ -14,9 +13,7 @@ return static function (ContainerConfigurator $configurator) {
     if (!is_string($fractorConfigFile)) {
         throw new \RuntimeException('No file passed in env variable FRACTOR_CONFIG_FILE', 1712507292);
     }
-    $fractorConfigClosure = (require $fractorConfigFile);
-    Assert::isCallable($fractorConfigClosure, 'FRACTOR_CONFIG_FILE did not yield a callable');
-    $fractorConfigClosure($fractorConfig);
+    $fractorConfig->import($fractorConfigFile);
 
     $lifterConfigFile = getenv('LIFTER_CONFIG_FILE');
     if (!is_string($lifterConfigFile)) {
