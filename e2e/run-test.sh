@@ -11,9 +11,10 @@ cd $TESTS_BASE_DIR
 #rm -r composer.lock vendor || true
 composer install
 
+SUCCESS=1
+
 fail() {
-  echo "Test failed"
-  exit 1
+  SUCCESS=0
 }
 
 run_test() {
@@ -36,22 +37,28 @@ run_test() {
   cd $TESTS_BASE_DIR
   if [[ -x $TESTS_BASE_DIR/$TEST_DIR/run.sh ]]
   then
-    ($TESTS_BASE_DIR/$TEST_DIR/run.sh > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || (echo "Test $TEST_DIR failed"; fail)
+    ($TESTS_BASE_DIR/$TEST_DIR/run.sh > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || { echo "Test $TEST_DIR failed"; fail; }
   else
-    (./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || (echo "Test $TEST_DIR failed"; fail)
+    (./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || { echo "Test $TEST_DIR failed"; fail; }
   fi
 
-  diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt || (echo "Program output does not match expectation"; fail)
-  diff -rub $TEST_DIR/expected-result/ $TEST_DIR/result/ || (echo "Produced result does not match expectations"; fail)
+  diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt || { echo "Program output does not match expectation"; fail; }
+  diff -rub $TEST_DIR/expected-result/ $TEST_DIR/result/ || { echo "Produced result does not match expectations"; fail; }
 }
 
 if [ $# -eq 0 ]
 then
-  run_test rector
   run_test fractor
+  run_test rector
 else
   for test in $@
   do
     run_test $test
   done
+fi
+
+if [ $SUCCESS -eq 0 ]
+then
+  echo "Test failed"
+  exit 1
 fi
