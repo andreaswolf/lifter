@@ -56,8 +56,22 @@ class RectorStepExecutor implements StepExecutor
             ],
             timeout: 3600
         );
-        $process->run(static function ($type, $data) {
-            echo 'RECTOR: ' . $data;
+        $firstLine = true;
+        $process->run(static function ($type, $data) use (&$firstLine) {
+            $data = trim($data);
+
+            // TODO do we need to handle CRLF separately here?
+            $lines = explode("\n", $data);
+            if (!$firstLine) {
+                echo array_shift($lines);
+            } else {
+                $firstLine = false;
+            }
+            $lines = array_map(
+                static fn (string $line) => "RECTOR: $line",
+                $lines
+            );
+            echo implode("\n", $lines), "\n";
         });
     }
 }

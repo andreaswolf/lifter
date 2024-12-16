@@ -56,11 +56,17 @@ class FractorStepExecutor implements StepExecutor
             ],
             timeout: 3600
         );
-        $process->run(static function ($type, $data) {
+        $firstLine = true;
+        $process->run(static function ($type, $data) use (&$firstLine) {
             $data = trim($data);
 
             // TODO do we need to handle CRLF separately here?
             $lines = explode("\n", $data);
+            if (!$firstLine) {
+                echo array_shift($lines);
+            } else {
+                $firstLine = false;
+            }
             $lines = array_map(
                 static fn (string $line) => "FRACTOR: $line",
                 $lines
