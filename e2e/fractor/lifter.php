@@ -17,13 +17,13 @@ return static function (LifterConfig $config) {
         new FractorStep(
             'Update phpunit/phpunit to 11.x',
             static function (FractorConfigurationBuilder $fractorConfig) {
-                $fractorConfig->withPaths([__DIR__ . '/result/**']);
-                $fractorConfig->withConfiguredRule(
-                    ChangePackageVersionComposerJsonFractor::class,
-                    [
-                        new PackageAndVersion('phpunit/phpunit', '^11.2')
-                    ]
-                );
+                return $fractorConfig
+                    ->withConfiguredRule(
+                        ChangePackageVersionComposerJsonFractor::class,
+                        [
+                            new PackageAndVersion('phpunit/phpunit', '^11.2')
+                        ]
+                    );
             }
         )
     ]);
