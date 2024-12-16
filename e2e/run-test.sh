@@ -30,8 +30,8 @@ run_test() {
   cd $TESTS_BASE_DIR/$TEST_DIR
 
   [[ -f $TESTS_BASE_DIR/$TEST_DIR/output.txt ]] && rm -f $TESTS_BASE_DIR/$TEST_DIR/output.txt
-  [[ -d ./output/ ]] && rm -rf ./output/
-  cp -r fixtures/ output/
+  [[ -d ./result/ ]] && rm -rf ./result/
+  cp -r fixtures/ result/
 
   cd $TESTS_BASE_DIR
   if [[ -x $TESTS_BASE_DIR/$TEST_DIR/run.sh ]]
@@ -42,7 +42,7 @@ run_test() {
   fi
 
   diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt || (echo "Program output does not match expectation"; fail)
-  diff -rub $TEST_DIR/expected-output/ $TEST_DIR/output/ || (echo "Produced result does not match expectations"; fail)
+  diff -rub $TEST_DIR/expected-result/ $TEST_DIR/result/ || (echo "Produced result does not match expectations"; fail)
 }
 
 if [ $# -eq 0 ]
