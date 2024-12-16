@@ -4,7 +4,6 @@ use a9f\Fractor\Configuration\FractorConfiguration;
 use a9f\Lifter\Configuration\LifterConfigFactory;
 use a9f\Lifter\Upgrade\Step\FractorStep;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Webmozart\Assert\Assert;
 
 return static function (ContainerConfigurator $configurator) {
     $fractorConfig = FractorConfiguration::configure();
