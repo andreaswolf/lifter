@@ -3,30 +3,34 @@
 namespace a9f\Lifter\Upgrade;
 
 use a9f\Lifter\Configuration\LifterConfig;
-use Symfony\Component\Process\Process;
+use a9f\Lifter\Process\ProcessFactory;
 
 /**
  * @final
  */
 class GitService
 {
-    public function __construct(private readonly LifterConfig $config)
-    {
+    public function __construct(
+        private readonly LifterConfig $config,
+        private readonly ProcessFactory $processFactory
+    ) {
     }
 
-    public function performGitCommit(string $commitMessage): void
+    public function doGitCommitForStep(UpgradeStep $step): void
     {
-        $process = new Process(
-            [
-                '/usr/bin/env',
-                'git',
-                'commit',
-                '-a',
-                '--allow-empty',
-                '-m',
-                $commitMessage
-            ],
-            $this->config->getWorkingDirectory(),
+        $commitMessage = $step->getCommitMessage();
+        if ($this->config->getCommitMessagePrefix() !== '') {
+            $commitMessage = sprintf('%s %s', $this->config->getCommitMessagePrefix(), $commitMessage);
+        }
+
+        $process = $this->processFactory->createProcess(
+            '/usr/bin/env',
+            'git',
+            'commit',
+            '-a',
+            '--allow-empty',
+            '-m',
+            $commitMessage
         );
         $process->run();
 
