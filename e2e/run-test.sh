@@ -49,6 +49,7 @@ run_test() {
 if [ $# -eq 0 ]
 then
   run_test fractor
+  run_test missing-config-file
   run_test rector
 else
   for test in $@
