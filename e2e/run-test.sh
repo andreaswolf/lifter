@@ -14,6 +14,8 @@ composer install
 SUCCESS=1
 
 fail() {
+  echo $1
+
   SUCCESS=0
 }
 
@@ -30,20 +32,24 @@ run_test() {
 
   cd $TESTS_BASE_DIR/$TEST_DIR
 
-  [[ -f $TESTS_BASE_DIR/$TEST_DIR/output.txt ]] && rm -f $TESTS_BASE_DIR/$TEST_DIR/output.txt
+  OUTPUT_FILE=$TESTS_BASE_DIR/$TEST_DIR/output.txt
+
+  [[ -f $OUTPUT_FILE ]] && rm -f $OUTPUT_FILE
   [[ -d ./result/ ]] && rm -rf ./result/
-  cp -r fixtures/ result/
+  [[ -d ./fixtures ]] && cp -r fixtures/ result/
 
   cd $TESTS_BASE_DIR
   if [[ -x $TESTS_BASE_DIR/$TEST_DIR/run.sh ]]
   then
-    ($TESTS_BASE_DIR/$TEST_DIR/run.sh > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || { echo "Test $TEST_DIR failed"; fail; }
+    ($TESTS_BASE_DIR/$TEST_DIR/run.sh > $OUTPUT_FILE) || fail "Test $TEST_DIR failed"
   else
-    (./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $TESTS_BASE_DIR/$TEST_DIR/output.txt) || { echo "Test $TEST_DIR failed"; fail; }
+    (./vendor/bin/lifter run --file=$TESTS_BASE_DIR/$TEST_DIR/lifter.php > $OUTPUT_FILE) || fail "Test $TEST_DIR failed"
   fi
 
-  diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt || { echo "Program output does not match expectation"; fail; }
-  diff -rub $TEST_DIR/expected-result/ $TEST_DIR/result/ || { echo "Produced result does not match expectations"; fail; }
+  sed -i -e "s#$TESTS_BASE_DIR/$TEST_DIR#<test-dir>#g" $OUTPUT_FILE
+
+  diff -ub $TEST_DIR/expected-output.txt $TEST_DIR/output.txt || fail "Program output does not match expectation"
+  [[ -d $TEST_DIR/expected-result/ ]] && { diff -rub $TEST_DIR/expected-result/ $TEST_DIR/result/ || fail "Produced result does not match expectations"; }
 }
 
 if [ $# -eq 0 ]
