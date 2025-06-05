@@ -1,5 +1,6 @@
 <?php
 
+use a9f\Fractor\Caching\ValueObject\Storage\MemoryCacheStorage;
 use a9f\Fractor\Configuration\FractorConfigurationBuilder;
 use a9f\Lifter\Configuration\LifterConfigFactory;
 use a9f\Lifter\Upgrade\Step\FractorStep;
@@ -7,6 +8,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 return static function (ContainerBuilder $container) {
     $fractorConfig = $container->get(FractorConfigurationBuilder::class);
+
+    $fractorConfig->withCache(
+        null,
+        MemoryCacheStorage::class,
+        null,
+    );
 
     // this is an additional file that can be used to configure Fractor before the individual step
     $fractorConfigFile = getenv('FRACTOR_CONFIG_FILE');
