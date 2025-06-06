@@ -20,6 +20,9 @@ final class LifterConfig
 
     private bool $commitResults = true;
 
+    private ?string $commitAuthor = null;
+    private ?string $commitEMail = null;
+
     public function __construct(public readonly ?string $configurationFile)
     {
         $this->workingDirectory = \Safe\getcwd();
@@ -47,6 +50,21 @@ final class LifterConfig
     public function getCommitMessagePrefix(): string
     {
         return $this->commitMessagePrefix;
+    }
+
+    public function withCommitAuthor(string $name, string $email): void
+    {
+        $this->commitAuthor = $name;
+        $this->commitEMail = $email;
+    }
+
+    public function getCommitAuthor(): ?string
+    {
+        if ($this->commitAuthor === null || $this->commitEMail === null) {
+            return null;
+        }
+
+        return sprintf('%s <%s>', $this->commitAuthor, $this->commitEMail);
     }
 
     /**

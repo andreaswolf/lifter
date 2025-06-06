@@ -22,16 +22,23 @@ class GitService
         if ($this->config->getCommitMessagePrefix() !== '') {
             $commitMessage = sprintf('%s %s', $this->config->getCommitMessagePrefix(), $commitMessage);
         }
+        $authorParams = [];
+        $commitAuthor = $this->config->getCommitAuthor();
+        if ($commitAuthor !== null) {
+            $authorParams[] = '--author';
+            $authorParams[] = $commitAuthor;
+        }
 
-        $process = $this->processFactory->createProcess(
+        $process = $this->processFactory->createProcess(...[
             '/usr/bin/env',
             'git',
             'commit',
+            ...$authorParams,
             '-a',
             '--allow-empty',
             '-m',
-            $commitMessage
-        );
+            $commitMessage,
+        ]);
         $process->run();
 
         if ($process->getExitCode() > 0) {
