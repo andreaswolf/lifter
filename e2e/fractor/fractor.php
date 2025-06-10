@@ -1,7 +1,6 @@
 <?php
 
-use a9f\Fractor\Configuration\FractorConfigurationBuilder;
+use a9f\Fractor\Configuration\FractorConfiguration;
 
-return static function (FractorConfigurationBuilder $fractorConfig) {
-    // no-op for now
-};
+return FractorConfiguration::configure()
+    ->withPaths([__DIR__ . '/result/**']);
